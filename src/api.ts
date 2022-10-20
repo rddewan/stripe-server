@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 export const app = express();
+import bodyParser from 'body-parser'
 import { createStripeCheckoutSession } from './checkout';
 import { createPaymentIntent } from './payments';
 import { handleStripeWebhook } from './webhooks';
@@ -13,7 +14,7 @@ app.use(cors({ origin: true }));
 
 // Sets rawBody for webhook handling
 app.use(
-  express.json({
+  bodyParser.json({
     verify: (req, res, buffer) => (req['rawBody'] = buffer),
   })
 );
