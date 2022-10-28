@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import { createStripeCheckoutSession } from './checkout';
 import { createPaymentIntent } from './payments';
 import { handleStripeWebhook } from './webhooks';
-import { createSetupIntent, listPaymentMethods } from './customers';
+import { createCustomer, createSetupIntent, getCustomerById, listPaymentMethods } from './customers';
 import { auth } from './firebase';
 
 // Allows cross origin requests
@@ -78,6 +78,44 @@ app.post(
 )
 
 /**
+ * get customer
+ * 
+ */
+
+app.get(
+  '/customer',
+  runAsync(async (req: Request, res: Response) => {
+    console.log(req.query.customerId)
+    const customerId = req.query.customerId.toString();
+    
+    res.send(
+      await getCustomerById(customerId)
+    );
+  })
+);
+
+/**
+ * Payment Intents
+ */
+
+app.post(
+  '/customer',
+  runAsync(async (req: Request, res: Response) => {
+    console.log(req.body.name)
+    
+    res.send(
+      await createCustomer(
+        req.body.name,
+        req.body.email,
+        req.body.params
+
+      )
+    );
+  })
+);
+
+
+/**
  * Payment Intents
  */
 
@@ -87,6 +125,20 @@ app.post(
     
     res.send(
       await createPaymentIntent(body.amount)
+    );
+  })
+);
+
+/**
+ * Payment Intents
+ */
+
+app.get(
+  '/customer',
+  runAsync(async (req: Request, res: Response) => {
+    
+    res.send(
+      await getCustomerById(req['customerId'])
     );
   })
 );

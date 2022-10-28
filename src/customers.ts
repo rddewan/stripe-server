@@ -55,5 +55,31 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
        
         return await stripe.customers.retrieve(stripeCustomerId) as Stripe.Customer;
     }
+  
+}
 
+  /**
+ * Gets the existing Stripe customer or creates a new record
+ */
+export async function getCustomerById(customerId: string) {
+    return await stripe.customers.retrieve(customerId) as Stripe.Customer;
+}
+
+/**
+ * Gets the existing Stripe customer or creates a new record
+ */
+export async function createCustomer(
+    name: string, 
+    email: string, 
+    params?: Stripe.CustomerCreateParams) {
+    
+    // CREATE new customer
+    const customer = await stripe.customers.create({
+        name:name,
+        email:email,            
+        ...params
+    });
+    
+    return customer;
+  
 }
