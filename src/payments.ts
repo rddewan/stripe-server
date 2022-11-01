@@ -3,11 +3,14 @@ import { stripe } from './';
 /**
  * Create a Payment Intent with a specific amount
  */
-export async function createPaymentIntent(amount: number) {
+export async function createPaymentIntent(amount: number,currency: string) {
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
-    currency: 'usd',
-    // receipt_email: 'hello@fireship.io',
+    currency: currency,
+    automatic_payment_methods: {
+      enabled: true,
+    },
+    //payment_method_types: ['card','promptpay'],
   });
 
   paymentIntent.status

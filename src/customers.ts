@@ -66,7 +66,7 @@ export async function getCustomerById(customerId: string) {
 }
 
 /**
- * Gets the existing Stripe customer or creates a new record
+ * Creates a new record
  */
 export async function createCustomer(
     name: string, 
@@ -79,6 +79,18 @@ export async function createCustomer(
         email:email,            
         ...params
     });
+    
+    return customer;
+  
+}
+
+/**
+ * Creates a new record
+ */
+export async function deleteCustomer(id: string) {
+    
+    // delete new customer
+    const customer = await stripe.customers.del(id);
     
     return customer;
   

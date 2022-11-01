@@ -124,7 +124,7 @@ app.post(
   runAsync(async ({ body }: Request, res: Response) => {
     
     res.send(
-      await createPaymentIntent(body.amount)
+      await createPaymentIntent(body.amount,body.currency)
     );
   })
 );

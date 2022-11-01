@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "10"
+    "node": "16"
   },
   "scripts": {
     "build": "tsc",
@@ -18,9 +18,9 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "firebase-admin": "^8.6.0",
+    "firebase-admin": "^11.2.0",
     "parse-body": "^1.0.3",
-    "stripe": "^8.43.0"
+    "stripe": "^10.15.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",

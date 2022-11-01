@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 // Stripe setup
 import Stripe from "stripe";    
 export const stripe = new Stripe(process.env.STRIPE_SECRET, {
-    apiVersion: '2020-08-27',
+    apiVersion: '2022-08-01',
 })
 
 // Start the API with Express
