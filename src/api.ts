@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import { createStripeCheckoutSession } from './checkout';
 import { createPaymentIntent } from './payments';
 import { handleStripeWebhook } from './webhooks';
-import { createCustomer, createSetupIntent, getCustomerById, listPaymentMethods } from './customers';
+import { createCustomer, createSetupIntent, getCustomerByEmail, getCustomerById, listPaymentMethods } from './customers';
 import { auth } from './firebase';
 
 // Allows cross origin requests
@@ -130,7 +130,7 @@ app.post(
 );
 
 /**
- * Payment Intents
+ * Get customer by id
  */
 
 app.get(
@@ -139,6 +139,20 @@ app.get(
     
     res.send(
       await getCustomerById(req['customerId'])
+    );
+  })
+);
+
+/**
+ * Get customer by id
+ */
+
+app.get(
+  '/customer/search',
+  runAsync(async (req: Request, res: Response) => {
+    
+    res.send(
+      await getCustomerByEmail(req.query.email.toString())
     );
   })
 );

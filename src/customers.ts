@@ -2,6 +2,7 @@ import { stripe } from '.';
 import { db, auth } from './firebase';
 import Stripe from 'stripe';
 
+
 /**
  * Creates a SetupIntent used to save a credit card for later use
  */
@@ -63,6 +64,16 @@ export async function getOrCreateCustomer(userId: string, params?: Stripe.Custom
  */
 export async function getCustomerById(customerId: string) {
     return await stripe.customers.retrieve(customerId) as Stripe.Customer;
+}
+
+  /**
+ * Gets the existing Stripe customer or creates a new record
+ */
+export async function getCustomerByEmail(email: string) {
+    console.log(email);
+    return await stripe.customers.search({
+        query: `email:\'${email}\'`,
+    });
 }
 
 /**
